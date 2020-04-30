@@ -1,0 +1,84 @@
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script >
+            $(document).ready(function(){
+                $("#create").click(function(){
+                  var number_of_rows = 3;
+                  var number_of_cols = 3;
+                  //var number_of_blocks = $('#blocks').val();
+                  var table_body = '<table border="1">';
+                    counterId = 1;
+                  for(var i=1;i<=number_of_rows;i++){
+                    counter = 1;
+                    table_body+='<tr>';
+                    for(var j=1;j<=number_of_cols;j++){
+                        table_body +='<td width="30px">';
+                        table_body +='<input id="'+ (i+''+j) + '" style="width:40px; height:40px; font-size:24px; text-align: center;" >';
+                        table_body +='</td>';
+                    }
+                    table_body+='</tr>';
+                  }
+                    table_body+='</table>';
+                   $('#tableDiv').html(table_body);
+                });
+
+                $("#solve").click(function(){
+                    var table = $('#tableDiv table'),
+                        rows = $('table tr').length,
+                        cols = $('table td').length/rows;
+                    
+                    for(var i=1; i<= rows; i++){
+                        for(var j=1; j<= cols; j++){
+                            cI = $('input#'+i+''+j);
+                            if(cI.val() !== ''){
+                                checkRow(i,j);
+                                checkCol(i,j);
+                               // checkCurrentGrid(); 
+                            }
+                        }
+                    }
+                    function checkRow(i,j){
+                        while(i<=rows && j<=cols){
+                            cI = $('input#'+i+''+j);
+                            console.log("row: " + cI.val());
+                            j++
+                        }
+                    }
+                    function checkCol(i,j){
+                        while(i<=rows && j<=cols){
+                            cI = $('input#'+i+''+j);
+                            console.log("col: " + cI.val());
+                            i++
+                        }
+                    }
+                    function checkCurrentGrid(){
+                        let k=1;
+                        while(k<=rows){
+                            let l=1;
+                            while(l<=cols){
+                                cI = $('input#'+k+''+l);
+                               // console.log("grid: " + cI.val());
+                                l++;
+                            }
+                            k++;
+                        }
+                    }
+                });
+            });
+        </script>
+        <script>
+           
+        </script>
+    </head>
+    <body>
+        <div style="margin-top: 50px; margin-left: 250px">
+            <button id='create'>Create Table</button>
+            <div id="tableDiv" style="margin-top: 40px">
+                Table will gentare here.
+            </div>
+        </div>
+        <div style="margin-top: 50px; margin-left: 250px">
+            <button id='solve'>Solve</button>
+        </div>
+    </body>
